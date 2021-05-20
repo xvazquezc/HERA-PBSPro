@@ -97,7 +97,7 @@ After the successful submission of pipeline.sh, HERA will take a few steps to ge
 5. Constructing and traversing the contig-to-contig path graph to define the order and orientation of the contigs;
 6. Constructing the consensus sequence to fill the gap and produce the final genome.
 
-Finally, the users can get the combined geome, the super-contig genome and the connection information by HERA in the work_shop/genome_name-Final_Genome_HERA.fasta, 06-Daligner/Selected_Path.txt and 06-Daligner/Ctg_Position.txt.
+Finally, the users can get the combined seq, the super-contig genome and the connection information by HERA in the work_shop/genome_name-Final_Genome_HERA.fasta, 06-Daligner/SuperContig.fasta and 06-Daligner/Ctg_Position.txt.
 
 # Details of HERA pepiline
 
