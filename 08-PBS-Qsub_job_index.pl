@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-#Author: YiLei
+#Author: huilong du & YiLei
 #Date: 2021/05/31
 #Note: Based on 08-qsub_job_index.pl
 
