@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-#Author: YiLei
+#Author: huilong du & YiLei
 #Date: 2021/05/31
 #Note: Based on 04-Qsub-Mapping2Ctg.pl
 #Note: align the corrected pacbios and non-scaffolded contigs to scaffolded contigs
