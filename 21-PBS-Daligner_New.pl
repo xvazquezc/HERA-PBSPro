@@ -15,7 +15,7 @@ my $script=shift;
 my $genome_name=shift;
 my $DAZZ_DB=shift;            #DAZZ_DB
 my $DALIGNER=shift;           #DALIGNER
-my ${MyWorkshop}=shift;
+my ${outfolder}=shift;
 
 open IN1,"<$infile1" or die $!;
 open IN2,"<$infile2" or die $!;
@@ -64,7 +64,7 @@ while(<IN1>){
         print "$Gap_Info\n";
         my $commond1=`mkdir $Gap_Info`;
 #       my $commond1=`mkdir $Gap_Info`;
-#       my $Abs_path="${MyWorkshop}/06-Daligner"
+#       my $Abs_path="${outfolder}/06-Daligner"
         open OUT,">$Gap_Info/$Gap_Info.fasta" or die $!;
         print OUT ">$content[0]\n";
         print OUT "$ScaffoldContig{$content[0]}\n";
@@ -84,31 +84,31 @@ while(<IN1>){
 #PBS -l select=1:ncpus=1
 #PBS -q $queue
 
-cd ${MyWorkshop}/06-Daligner/$Gap_Info
+cd ${outfolder}/06-Daligner/$Gap_Info
 
-perl $script/lines_to_split.pl ${MyWorkshop}/06-Daligner/$Gap_Info/$Gap_Info.fasta \
-    ${MyWorkshop}/06-Daligner/$Gap_Info/$Gap_Info-formated.fasta
+perl $script/lines_to_split.pl ${outfolder}/06-Daligner/$Gap_Info/$Gap_Info.fasta \
+    ${outfolder}/06-Daligner/$Gap_Info/$Gap_Info-formated.fasta
 
 #perl $script/SplitRef.pl $Gap_Info.fasta $Gap_Info-formated.fasta
 
-$DAZZ_DB/fasta2DAM ${MyWorkshop}/06-Daligner/$Gap_Info/$Gap_Info ${MyWorkshop}/06-Daligner/$Gap_Info/$Gap_Info-formated.fasta
+$DAZZ_DB/fasta2DAM ${outfolder}/06-Daligner/$Gap_Info/$Gap_Info ${outfolder}/06-Daligner/$Gap_Info/$Gap_Info-formated.fasta
 
-$DAZZ_DB/DBdust ${MyWorkshop}/06-Daligner/$Gap_Info/$Gap_Info.dam
+$DAZZ_DB/DBdust ${outfolder}/06-Daligner/$Gap_Info/$Gap_Info.dam
 
-$DAZZ_DB/DBsplit -x1000 -s50 ${MyWorkshop}/06-Daligner/$Gap_Info/$Gap_Info.dam
+$DAZZ_DB/DBsplit -x1000 -s50 ${outfolder}/06-Daligner/$Gap_Info/$Gap_Info.dam
 
-$DALIGNER/HPC.daligner ${MyWorkshop}/06-Daligner/$Gap_Info/$Gap_Info.dam > ${MyWorkshop}/06-Daligner/$Gap_Info/$Gap_Info.sh
+$DALIGNER/HPC.daligner ${outfolder}/06-Daligner/$Gap_Info/$Gap_Info.dam > ${outfolder}/06-Daligner/$Gap_Info/$Gap_Info.sh
 
-time sh ${MyWorkshop}/06-Daligner/$Gap_Info/$Gap_Info.sh
+time sh ${outfolder}/06-Daligner/$Gap_Info/$Gap_Info.sh
 
-rm -f ${MyWorkshop}/06-Daligner/$Gap_Info/$Gap_Info.*.$Gap_Info.*.?*.las
+rm -f ${outfolder}/06-Daligner/$Gap_Info/$Gap_Info.*.$Gap_Info.*.?*.las
 
-$DAZZ_DB/DBdump -rh ${MyWorkshop}/06-Daligner/$Gap_Info/$Gap_Info.dam | perl $script/ParseDAZZDB.pl >${MyWorkshop}/06-Daligner/$Gap_Info/ParseDAZZDB.txt
+$DAZZ_DB/DBdump -rh ${outfolder}/06-Daligner/$Gap_Info/$Gap_Info.dam | perl $script/ParseDAZZDB.pl >${outfolder}/06-Daligner/$Gap_Info/ParseDAZZDB.txt
 
-cat ${MyWorkshop}/06-Daligner/$Gap_Info/$Gap_Info*.las >${MyWorkshop}/06-Daligner/$Gap_Info/All.las
+cat ${outfolder}/06-Daligner/$Gap_Info/$Gap_Info*.las >${outfolder}/06-Daligner/$Gap_Info/All.las
 
-$DALIGNER/LAdump -cd ${MyWorkshop}/06-Daligner/$Gap_Info/$Gap_Info.dam ${MyWorkshop}/06-Daligner/$Gap_Info/All.las | perl $script/ParseLA.pl > ${MyWorkshop}/06-Daligner/$Gap_Info/$Gap_Info-Final.txt
-perl $script/Daligner_Reformate.pl ${MyWorkshop}/06-Daligner/$Gap_Info/$Gap_Info-Final.txt ${MyWorkshop}/06-Daligner/$Gap_Info/$Gap_Info-Final_Reformated.txt
+$DALIGNER/LAdump -cd ${outfolder}/06-Daligner/$Gap_Info/$Gap_Info.dam ${outfolder}/06-Daligner/$Gap_Info/All.las | perl $script/ParseLA.pl > ${outfolder}/06-Daligner/$Gap_Info/$Gap_Info-Final.txt
+perl $script/Daligner_Reformate.pl ${outfolder}/06-Daligner/$Gap_Info/$Gap_Info-Final.txt ${outfolder}/06-Daligner/$Gap_Info/$Gap_Info-Final_Reformated.txt
 ";
                 close(OUT);
                 sleep(3);

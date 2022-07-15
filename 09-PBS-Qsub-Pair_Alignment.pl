@@ -49,7 +49,7 @@ my $infile=shift;
 my $script=shift;
 my $queue=shift;
 my $genome=shift;
-my $MyWorkshop=shift;
+my $outfolder=shift;
 my ${Bwa}=shift;
 
 open IN,"<$infile" or die $!;
@@ -87,24 +87,24 @@ for(my $i=0;$i<@part;$i++){
         if($i==$j){
            print OUT "
 
-${Bwa}/bwa mem -a -e -t 1 $part[$i] $part[$j] >${MyWorkshop}/03-Pacbio-SelfAlignment/Part_SelfAlignment_$i-$j.sam
+${Bwa}/bwa mem -a -e -t 1 $part[$i] $part[$j] >${outfolder}/03-Pacbio-SelfAlignment/Part_SelfAlignment_$i-$j.sam
 echo Bwa SelfAlignment finished at `date`
 
-perl $script/sam2blasr.pl ${MyWorkshop}/03-Pacbio-SelfAlignment/Part_SelfAlignment_$i-$j.sam ${MyWorkshop}/03-Pacbio-SelfAlignment/Part_SelfAlignment_$i-$j.txt
+perl $script/sam2blasr.pl ${outfolder}/03-Pacbio-SelfAlignment/Part_SelfAlignment_$i-$j.sam ${outfolder}/03-Pacbio-SelfAlignment/Part_SelfAlignment_$i-$j.txt
 echo Sam2blasr finished at `date`
 
-rm -f ${MyWorkshop}/03-Pacbio-SelfAlignment/Part_SelfAlignment_$i-$j.sam
+rm -f ${outfolder}/03-Pacbio-SelfAlignment/Part_SelfAlignment_$i-$j.sam
 ";
         }
         else{
            print OUT "
-${Bwa}/bwa mem -a -t 1 $part[$i] $part[$j] >${MyWorkshop}/03-Pacbio-SelfAlignment/Part_SelfAlignment_$i-$j.sam
+${Bwa}/bwa mem -a -t 1 $part[$i] $part[$j] >${outfolder}/03-Pacbio-SelfAlignment/Part_SelfAlignment_$i-$j.sam
 echo Bwa SelfAlignment finished at `date`
 
-perl $script/sam2blasr.pl ${MyWorkshop}/03-Pacbio-SelfAlignment/Part_SelfAlignment_$i-$j.sam ${MyWorkshop}/03-Pacbio-SelfAlignment/Part_SelfAlignment_$i-$j.txt
+perl $script/sam2blasr.pl ${outfolder}/03-Pacbio-SelfAlignment/Part_SelfAlignment_$i-$j.sam ${outfolder}/03-Pacbio-SelfAlignment/Part_SelfAlignment_$i-$j.txt
 echo Sam2blasr finished at `date`
 
-rm -f ${MyWorkshop}/03-Pacbio-SelfAlignment/Part_SelfAlignment_$i-$j.sam
+rm -f ${outfolder}/03-Pacbio-SelfAlignment/Part_SelfAlignment_$i-$j.sam
 ";
         }
         close(OUT);
