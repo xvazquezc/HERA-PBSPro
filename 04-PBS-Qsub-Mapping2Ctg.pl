@@ -26,7 +26,7 @@ while(<IN>){
 #PBS -N $genome-Map-$count
 #PBS -o $count.log
 #PBS -e $count.err
-#PBS -l nodes=1:ppn=1
+#PBS -l select=1:ncpus=1
 #PBS -q $queue
 
 ${Bwa}/bwa mem -a -t 1 $ref $line >$output/Part_Alignment_$count.sam

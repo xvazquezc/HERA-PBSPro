@@ -81,7 +81,7 @@ while(<IN1>){
 #PBS -N $genome_name-DALIGNER-$Gap_Info
 #PBS -o $Gap_Info.log
 #PBS -e $Gap_Info.err
-#PBS -l nodes=1:ppn=1
+#PBS -l select=1:ncpus=1
 #PBS -q $queue
 
 cd ${MyWorkshop}/06-Daligner/$Gap_Info

@@ -23,7 +23,7 @@ while(<IN>){
 #PBS -N $genome-INDEX-$count
 #PBS -o $count.log
 #PBS -e $count.err
-#PBS -l nodes=1:ppn=1
+#PBS -l select=1:ncpus=1
 #PBS -q $queue
 
 ${Bwa}/bwa index $line

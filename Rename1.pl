@@ -13,7 +13,7 @@ my $sign="";
 open OUT1,">rename.pbs" or die $!;
 print OUT1 "#PBS -N Rename
 #PBS -j oe
-#PBS -l nodes=1:ppn=1
+#PBS -l select=1:ncpus=1
 #PBS -q hldu
 cd \$PBS_O_WORKDIR\n";
 while(<IN>){
